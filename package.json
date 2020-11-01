@@ -1,0 +1,29 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "Real time web app with socket.io",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nithishkumar2027/chat-app.git"
+  },
+  "author": "Nithish kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nithishkumar2027/chat-app/issues"
+  },
+  "homepage": "https://github.com/Nithishkumar2027/chat-app#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
