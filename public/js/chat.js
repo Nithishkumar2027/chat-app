@@ -1,8 +1,12 @@
 const socket = io()
+
 socket.on('greetings', (data) => {
     console.log(data)
 })
 socket.on('userMessage', (msg) => {
+    console.log(msg)
+})
+socket.on('broadcastMessage', (msg) => {
     console.log(msg)
 })
 

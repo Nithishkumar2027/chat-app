@@ -25,8 +25,10 @@ io.on('connection', (socket) => {
         io.emit('userMessage', msg)
     })
 
+    socket.broadcast.emit('broadcastMessage', 'A user has joined')
+
     socket.on('disconnect', () => {
-        console.log('User disconnected')
+        io.emit('broadcastMessage', 'User left')
     })
 })
 
