@@ -27,6 +27,9 @@ io.on('connection', (socket) => {
 
     socket.broadcast.emit('broadcastMessage', 'A user has joined')
 
+    socket.on('sendLocation', (coords) => {
+        io.emit('sendLocation', coords)
+    })
     socket.on('disconnect', () => {
         io.emit('broadcastMessage', 'User left')
     })
