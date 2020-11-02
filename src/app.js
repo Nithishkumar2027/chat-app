@@ -17,8 +17,17 @@ app.get('/', (req, res) => {
     res.sendFile('index.html')
 })
 
-io.on('connection', () => {
-    console.log('New socket connection')
+io.on('connection', (socket) => {
+    console.log('New user connected')
+    socket.emit('greetings', 'Welcome Hooman🎉')
+
+    socket.on('sendMessage', (msg) => {
+        io.emit('userMessage', msg)
+    })
+
+    socket.on('disconnect', () => {
+        console.log('User disconnected')
+    })
 })
 
 const port = process.env.PORT || 3000;
