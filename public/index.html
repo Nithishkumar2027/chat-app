@@ -16,7 +16,7 @@
     <div id="messages"></div>
 
     <form id="msg-form">
-        <input type="text" name="msg" id="msg">
+        <input type="text" name="msg" id="msg" autocomplete="off">
         <button id="send">Send</button>
     </form>
     <button id="sendLocation">Send location</button>
@@ -24,6 +24,13 @@
     <script id="message-template" type="text/html">
         <div>
             <p>{{message}}</p>
+        </div>
+    </script>
+    <script id="location-template" type="text/html">
+        <div>
+            <p>
+                <a href={{url}} target="_blank">Click here</a> to see my location {{coords}}
+            </p>
         </div>
     </script>
 

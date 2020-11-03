@@ -32,7 +32,7 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('broadcastMessage', 'A user has joined')
 
     socket.on('sendLocation', (coords, callback) => {
-        io.emit('userMessage', `https://google.com/maps?q=${coords.latitude},${coords.longitude}`)
+        io.emit('locationMessage', coords)
         callback()
     })
     socket.on('disconnect', () => {

@@ -9,7 +9,7 @@ const $messages = document.querySelector('#messages')
 
 // Templates
 const messageTemplate = document.querySelector('#message-template').innerHTML
-
+const locationTemplate = document.querySelector('#location-template').innerHTML
 
 // Connections
 socket.on('greetings', (data) => {
@@ -25,6 +25,14 @@ socket.on('userMessage', (message) => {
 socket.on('broadcastMessage', (msg) => {
     console.log(msg)
 })
+socket.on('locationMessage', (coords) => {
+    console.log(`https://google.com/maps?q=${coords.latitude},${coords.longitude}`)
+    const html = Mustache.render(locationTemplate, {
+        url: `https://google.com/maps?q=${coords.latitude},${coords.longitude}`
+    })
+    $messages.insertAdjacentHTML('beforeend', html)
+})
+
 
 
 $messageForm.addEventListener('submit', (event) => {
