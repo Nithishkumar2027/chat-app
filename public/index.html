@@ -12,11 +12,24 @@
 
 <body>
     <h1>Chat App</h1>
+
+    <div id="messages"></div>
+
     <form id="msg-form">
         <input type="text" name="msg" id="msg">
         <button id="send">Send</button>
     </form>
     <button id="sendLocation">Send location</button>
+
+    <script id="message-template" type="text/html">
+        <div>
+            <p>{{message}}</p>
+        </div>
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.0.1/mustache.min.js"
+        integrity="sha512-6AXIWogbKpsHvoZJrJtHpIYES4wP8czSj0zk7ZfwOYS8GWYFNSykwdfapt7yQc4ikZytemBu+QyVObzBHJMwYg=="
+        crossorigin="anonymous"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="js/chat.js"></script>
 </body>
