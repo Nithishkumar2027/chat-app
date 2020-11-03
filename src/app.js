@@ -22,10 +22,11 @@ io.on('connection', (socket) => {
     console.log('New user connected')
     socket.emit('greetings', 'Welcome Hooman🎉')
 
-    socket.on('sendMessage', (msg) => {
+    socket.on('sendMessage', (msg, callback) => {
         filter = new Filter()
         msg = filter.clean(msg)
         io.emit('userMessage', msg)
+        callback()
     })
 
     socket.broadcast.emit('broadcastMessage', 'A user has joined')
