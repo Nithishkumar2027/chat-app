@@ -29,6 +29,8 @@ document.querySelector('#sendLocation').addEventListener('click', () => {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude
         }
-        socket.emit('sendLocation', location)
+        socket.emit('sendLocation', location, () => {
+            console.log('Location shared')
+        })
     })
 })

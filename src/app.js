@@ -3,6 +3,7 @@ const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const socketio = require('socket.io')
+const Filter = require('bad-words')
 
 const app = express();
 const server = http.createServer(app)
@@ -22,13 +23,16 @@ io.on('connection', (socket) => {
     socket.emit('greetings', 'Welcome Hooman🎉')
 
     socket.on('sendMessage', (msg) => {
+        filter = new Filter()
+        msg = filter.clean(msg)
         io.emit('userMessage', msg)
     })
 
     socket.broadcast.emit('broadcastMessage', 'A user has joined')
 
-    socket.on('sendLocation', (coords) => {
+    socket.on('sendLocation', (coords, callback) => {
         io.emit('sendLocation', coords)
+        callback()
     })
     socket.on('disconnect', () => {
         io.emit('broadcastMessage', 'User left')
