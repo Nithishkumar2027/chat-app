@@ -23,13 +23,13 @@
 
     <script id="message-template" type="text/html">
         <div>
-            <p>{{usermsg.createdAt}} - {{usermsg.message}}</p>
+            <p>{{createdAt}} ~ {{usermsg}}</p>
         </div>
     </script>
     <script id="location-template" type="text/html">
         <div>
             <p>
-                <a href={{url}} target="_blank">Click here</a> to see my location {{coords}}
+                {{createdAt}} ~ <a href={{url}} target="_blank">Click here</a> to see my location {{coords}}
             </p>
         </div>
     </script>

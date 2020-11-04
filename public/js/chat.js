@@ -16,25 +16,22 @@ socket.on('greetings', (data) => {
     console.log(data.message)
 })
 socket.on('userMessage', (usermsg) => {
-    console.log("Message: ", usermsg.message)
-    console.log("Time: ", usermsg.createdAt)
     const html = Mustache.render(messageTemplate, {
-        usermsg
+        usermsg: usermsg.message,
+        createdAt: usermsg.createdAt
     })
     $messages.insertAdjacentHTML('beforeend', html)
 })
 socket.on('broadcastMessage', (msg) => {
     console.log(msg.message)
 })
-socket.on('locationMessage', (coords) => {
-    console.log(`https://google.com/maps?q=${coords.latitude},${coords.longitude}`)
+socket.on('locationMessage', (locationData) => {
     const html = Mustache.render(locationTemplate, {
-        url: `https://google.com/maps?q=${coords.latitude},${coords.longitude}`
+        url: locationData.url,
+        createdAt: locationData.createdAt
     })
     $messages.insertAdjacentHTML('beforeend', html)
 })
-
-
 
 $messageForm.addEventListener('submit', (event) => {
     event.preventDefault()
