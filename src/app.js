@@ -1,9 +1,13 @@
+// Packages
 const http = require('http')
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const socketio = require('socket.io')
 const Filter = require('bad-words')
+
+// utils
+const { generateMessage } = require('./utils/messages')
 
 const app = express();
 const server = http.createServer(app)
@@ -20,23 +24,23 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
     console.log('New user connected')
-    socket.emit('greetings', 'Welcome Hooman🎉')
+    socket.emit('greetings', generateMessage('Welcome Hooman🎉'))
 
     socket.on('sendMessage', (msg, callback) => {
         filter = new Filter()
         msg = filter.clean(msg)
-        io.emit('userMessage', msg)
+        io.emit('userMessage', generateMessage(msg))
         callback()
     })
 
-    socket.broadcast.emit('broadcastMessage', 'A user has joined')
+    socket.broadcast.emit('broadcastMessage', generateMessage('A user has joined'))
 
     socket.on('sendLocation', (coords, callback) => {
         io.emit('locationMessage', coords)
         callback()
     })
     socket.on('disconnect', () => {
-        io.emit('broadcastMessage', 'User left')
+        io.emit('broadcastMessage', generateMessage('User left'))
     })
 })
 
