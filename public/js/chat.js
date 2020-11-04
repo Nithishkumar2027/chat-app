@@ -13,17 +13,18 @@ const locationTemplate = document.querySelector('#location-template').innerHTML
 
 // Connections
 socket.on('greetings', (data) => {
-    console.log(data)
+    console.log(data.message)
 })
-socket.on('userMessage', (message) => {
-    console.log(message)
+socket.on('userMessage', (usermsg) => {
+    console.log("Message: ", usermsg.message)
+    console.log("Time: ", usermsg.createdAt)
     const html = Mustache.render(messageTemplate, {
-        message
+        usermsg
     })
     $messages.insertAdjacentHTML('beforeend', html)
 })
 socket.on('broadcastMessage', (msg) => {
-    console.log(msg)
+    console.log(msg.message)
 })
 socket.on('locationMessage', (coords) => {
     console.log(`https://google.com/maps?q=${coords.latitude},${coords.longitude}`)
