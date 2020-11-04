@@ -7,7 +7,7 @@ const socketio = require('socket.io')
 const Filter = require('bad-words')
 
 // utils
-const { generateMessage } = require('./utils/messages')
+const { generateMessage, generateLocation } = require('./utils/messages')
 
 const app = express();
 const server = http.createServer(app)
@@ -36,7 +36,7 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('broadcastMessage', generateMessage('A user has joined'))
 
     socket.on('sendLocation', (coords, callback) => {
-        io.emit('locationMessage', coords)
+        io.emit('locationMessage', generateLocation(coords))
         callback()
     })
     socket.on('disconnect', () => {
