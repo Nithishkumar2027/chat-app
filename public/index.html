@@ -11,54 +11,18 @@
 </head>
 
 <body>
-
-    <div class="chat">
-        <div class="chat__sidebar"></div>
-        <div class="chat__main">
-            <div id="messages" class="chat__messages"></div>
-
-            <div class="compose">
-
-                <form id="msg-form">
-                    <input type="text" placeholder="Message" name="msg" id="msg" autocomplete="off">
-                    <button id="send">Send</button>
-                </form>
-
-                <button id="sendLocation">Send location</button>
-            </div>
-
+    <div class="centered-form">
+        <div class="centered-form__box">
+            <h1>Join</h1>
+            <form action="/chat.html">
+                <label for="userName">Display name</label>
+                <input type="text" name="userName" placeholder="Enter your name" required>
+                <label for="roomName">Room</label>
+                <input type="text" name="roomName" placeholder="Room" required>
+                <button>Join</button>
+            </form>
         </div>
     </div>
-
-
-
-    <!-- Templates -->
-    <script id="message-template" type="text/html">
-        <div class="message">
-            <p>
-                <span class="message__name">Some name</span>
-                <span class="message__meta">{{createdAt}}</span>
-            </p>
-            <p>{{usermsg}}</p>
-        </div>
-    </script>
-    <script id="location-template" type="text/html">
-        <div class="message">
-            <p>
-                <span class="message__name">Some name</span>
-                <span class="message__meta">{{createdAt}}</span>
-            </p>
-            <p>
-                <a href={{url}} target="_blank">Click here</a> to see my location {{coords}}
-            </p>
-        </div>
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.0.1/mustache.min.js"
-        integrity="sha512-6AXIWogbKpsHvoZJrJtHpIYES4wP8czSj0zk7ZfwOYS8GWYFNSykwdfapt7yQc4ikZytemBu+QyVObzBHJMwYg=="
-        crossorigin="anonymous"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="js/chat.js"></script>
 </body>
 
 </html>
