@@ -38,3 +38,21 @@ const removeUser = (id) => {
         return users.splice(index, 1)[0]
     }
 }
+
+// Get user info
+const getUser = (id) => {
+    return users.find(user => user.id === id)
+}
+
+// Get users list by room name
+const getUsersInRoom = (room) => {
+    room = room.trim().toLowerCase()
+    return users.filter(user => user.room === room)
+}
+
+module.exports = {
+    addUser,
+    removeUser,
+    getUser,
+    getUsersInRoom
+}
