@@ -24,10 +24,10 @@ app.get('/', (req, res) => {
 })
 
 io.on('connection', (socket) => {
-
-    socket.on('join', ({ username, room }, callback) => {
-        console.log({ username, room })
-        const { error, user } = addUser({ id: socket.id, username, room })
+    console.log('New Connection')
+    socket.on('join', (options, callback) => {
+        console.log(options)
+        const { error, user } = addUser({ id: socket.id, ...options })
 
         if (error) {
             return callback(error)
@@ -55,7 +55,7 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         const user = removeUser(socket.id)
         if (user) {
-            io.to(user.room).emit('broadcastMessage', generateMessage(`${user.username} has left`))
+            io.to(user.room).emit('userMessage', generateMessage(`${user.username} has left the chat`))
         }
 
     })

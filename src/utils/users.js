@@ -2,8 +2,9 @@ const users = []
 
 // Adding user
 const addUser = ({ id, username, room }) => {
-    // username = username.trim().toLowerCase()
-    // room = room.trim().toLowerCase()
+
+    username = username.trim().toLowerCase()
+    room = room.trim().toLowerCase()
 
     // Data validation
     if (!username || !room) {
