@@ -12,7 +12,7 @@ const messageTemplate = document.querySelector('#message-template').innerHTML
 const locationTemplate = document.querySelector('#location-template').innerHTML
 
 // userData
-const { userName, roomName } = Qs.parse(location.search, { ignoreQueryPrefix: true })
+const { username, room } = Qs.parse(location.search, { ignoreQueryPrefix: true })
 
 // Connections
 socket.on('greetings', (data) => {
@@ -65,4 +65,9 @@ $sendLocationButton.addEventListener('click', () => {
     })
 })
 
-socket.emit('join', { userName, roomName })
+socket.emit('join', { username, room }, (error) => {
+    if (error) {
+        alert(error)
+        location.href = '/'
+    }
+})
