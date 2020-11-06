@@ -3,9 +3,9 @@ const users = []
 // Adding user
 const addUser = ({ id, username, room }) => {
 
-    username = username.trim().toLowerCase()
-    room = room.trim().toLowerCase()
-
+    username = capitalizeFirstLetter(username)
+    room = capitalizeFirstLetter(room)
+    console.log(username, room)
     // Data validation
     if (!username || !room) {
         return {
@@ -47,8 +47,13 @@ const getUser = (id) => {
 
 // Get users list by room name
 const getUsersInRoom = (room) => {
-    room = room.trim().toLowerCase()
+    room = capitalizeFirstLetter(room)
     return users.filter(user => user.room === room)
+}
+
+const capitalizeFirstLetter = (string) => {
+    string = string.trim()
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 module.exports = {
