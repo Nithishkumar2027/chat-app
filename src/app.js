@@ -41,15 +41,17 @@ io.on('connection', (socket) => {
     })
 
     socket.on('sendMessage', (msg, callback) => {
+        const user = getUser(socket.id)
         filter = new Filter()
         msg = filter.clean(msg)
-        io.emit('userMessage', generateMessage(msg))
+        io.to(user.room).emit('userMessage', generateMessage(msg))
         callback()
     })
 
 
     socket.on('sendLocation', (coords, callback) => {
-        io.emit('locationMessage', generateLocation(coords))
+        const user = getUser(socket.id)
+        io.to(user.room).emit('locationMessage', generateLocation(coords))
         callback()
     })
     socket.on('disconnect', () => {
