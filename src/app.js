@@ -35,7 +35,7 @@ io.on('connection', (socket) => {
 
         socket.join(user.room)
 
-        socket.emit('greetings', generateMessage('Welcome Hooman🎉'))
+        socket.emit('userMessage', generateMessage('Admin', 'Welcome Hooman🎉'))
         socket.broadcast.to(user.room).emit('userMessage', generateMessage(`${user.username} has joined 🎉`))
         callback()
     })
@@ -44,14 +44,14 @@ io.on('connection', (socket) => {
         const user = getUser(socket.id)
         filter = new Filter()
         msg = filter.clean(msg)
-        io.to(user.room).emit('userMessage', generateMessage(msg))
+        io.to(user.room).emit('userMessage', generateMessage(user.username, msg))
         callback()
     })
 
 
     socket.on('sendLocation', (coords, callback) => {
         const user = getUser(socket.id)
-        io.to(user.room).emit('locationMessage', generateLocation(coords))
+        io.to(user.room).emit('locationMessage', generateLocation(user.username, coords))
         callback()
     })
     socket.on('disconnect', () => {

@@ -23,6 +23,7 @@ socket.on('greetings', (data) => {
 })
 socket.on('userMessage', (usermsg) => {
     const html = Mustache.render(messageTemplate, {
+        username: usermsg.username,
         usermsg: usermsg.message,
         createdAt: usermsg.createdAt
     })
@@ -31,6 +32,7 @@ socket.on('userMessage', (usermsg) => {
 
 socket.on('locationMessage', (locationData) => {
     const html = Mustache.render(locationTemplate, {
+        username: locationData.username,
         url: locationData.url,
         createdAt: locationData.createdAt
     })
@@ -39,14 +41,17 @@ socket.on('locationMessage', (locationData) => {
 
 $messageForm.addEventListener('submit', (event) => {
     event.preventDefault()
+    $messageFormInput.value = $messageFormInput.value.trim()
+    if ($messageFormInput.value !== '') {
+        $messageFormButton.disabled = true
+        const msg = event.target.elements.msg
+        socket.emit('sendMessage', msg.value, () => {
+            $messageFormButton.disabled = false
+            $messageFormInput.value = ''
+            $messageFormInput.focus()
+        })
+    }
 
-    $messageFormButton.disabled = true
-    const msg = event.target.elements.msg
-    socket.emit('sendMessage', msg.value, () => {
-        $messageFormButton.disabled = false
-        $messageFormInput.value = ''
-        $messageFormInput.focus()
-    })
 })
 
 $sendLocationButton.addEventListener('click', () => {
