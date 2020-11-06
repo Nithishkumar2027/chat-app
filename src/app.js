@@ -37,6 +37,10 @@ io.on('connection', (socket) => {
 
         socket.emit('userMessage', generateMessage('Admin', 'Welcome Hooman🎉'))
         socket.broadcast.to(user.room).emit('userMessage', generateMessage(`${user.username} has joined 🎉`))
+        io.to(user.room).emit('roomData', {
+            room: user.room,
+            users: getUsersInRoom(user.room)
+        })
         callback()
     })
 
@@ -58,6 +62,10 @@ io.on('connection', (socket) => {
         const user = removeUser(socket.id)
         if (user) {
             io.to(user.room).emit('userMessage', generateMessage(`${user.username} has left the chat`))
+            io.to(user.room).emit('roomData', {
+                room: user.room,
+                users: getUsersInRoom(user.room)
+            })
         }
 
     })
